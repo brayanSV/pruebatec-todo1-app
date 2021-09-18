@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_baseline_account_balance_24"
+        android:title="@string/title_account" />
+
+    <item
+        android:id="@+id/navigation_transfer"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="@string/title_transfer" />
+</menu>

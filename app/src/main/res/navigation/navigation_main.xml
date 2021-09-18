@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/navigation_account">
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.user.brayan.pruebatec_todo1.ui.acount.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/navigation_transfer"
+        android:name="com.user.brayan.pruebatec_todo1.ui.transfers.TransfersFragment"
+        android:label="@string/title_transfer"
+        tools:layout="@layout/fragment_transfers" />
+</navigation>
