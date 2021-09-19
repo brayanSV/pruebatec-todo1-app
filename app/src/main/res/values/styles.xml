@@ -7,12 +7,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
     <style name="ThemeOverlay.App.ButtonColorPrimary" parent="Widget.AppCompat.Button.Colored">
         <item name="textAllCaps">false</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="elevation">6sp</item>
         <item name="android:textSize">15sp</item>
         <item name="android:padding">10sp</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
+
 </resources>
