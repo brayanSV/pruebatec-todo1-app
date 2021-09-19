@@ -6,4 +6,7 @@
     <string name="title_transfer">Transfer</string>
     <string name="title_available_balance">Saldo Disponible</string>
     <string name="title_detail_and_movements">Ver detalle y movimientos</string>
+    <string name="text_input_user">Usuario</string>
+    <string name="text_input_password">Pasword</string>
+    <string name="text_button_login">Login</string>
 </resources>

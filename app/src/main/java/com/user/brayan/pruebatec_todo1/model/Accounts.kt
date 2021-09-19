@@ -1,20 +1,18 @@
 package com.user.brayan.pruebatec_todo1.model
 
-import androidx.room.Entity
-import androidx.room.Index
+/*import androidx.room.Entity
+import androidx.room.Index*/
 import com.google.gson.annotations.SerializedName
 
-@Entity(
-    indices = [
-        Index("id")
-    ],
+/*@Entity(
     primaryKeys = [
-        "number"
+        "acountID"
     ]
-)
+)*/
 
 data class Accounts(
-    val id: Int,
+    @field:SerializedName("id")
+    val acountID: Int,
     @field:SerializedName("account")
     val accountType: String,
     @field:SerializedName("number")
