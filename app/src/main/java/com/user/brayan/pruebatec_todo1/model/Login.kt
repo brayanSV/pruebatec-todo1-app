@@ -1,3 +1,8 @@
 package com.user.brayan.pruebatec_todo1.model
 
-data class Login(val token: String)
+import com.google.gson.annotations.SerializedName
+
+data class Login(
+    val user: String,
+    val password: String
+)

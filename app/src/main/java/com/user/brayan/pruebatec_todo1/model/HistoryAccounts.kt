@@ -1,17 +1,17 @@
 package com.user.brayan.pruebatec_todo1.model
 
-/*import androidx.room.Entity
-import androidx.room.Index*/
+import androidx.room.Entity
+import androidx.room.Index
 import com.google.gson.annotations.SerializedName
 
-/*@Entity(
-    indices = [
-        Index("id")
+@Entity(
+    primaryKeys = [
+        "historyId"
     ]
-)*/
-
+)
 data class HistoryAccounts(
-    val id: Int,
+    @field:SerializedName("id")
+    val historyId: Int,
     @field:SerializedName("date")
     val date: String,
     @field:SerializedName("descripcion")

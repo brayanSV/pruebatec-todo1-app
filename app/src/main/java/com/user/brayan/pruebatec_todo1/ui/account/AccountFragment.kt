@@ -1,4 +1,4 @@
-package com.user.brayan.pruebatec_todo1.ui.acount
+package com.user.brayan.pruebatec_todo1.ui.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
