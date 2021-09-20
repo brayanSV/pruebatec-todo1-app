@@ -1,15 +1,15 @@
 package com.user.brayan.pruebatec_todo1.di
 
-import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
 import com.user.brayan.pruebatec_todo1.ui.account.AccountFragment
+import com.user.brayan.pruebatec_todo1.ui.history.HistoryFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class BuildersModule {
+abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
-    abstract fun contributeAccountsFragment(): AccountFragment
+    abstract fun contributeAccountFragment(): AccountFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeHistoryAccountsActivity(): HistoryAccounts
+    abstract fun contributeHistoryFragmen(): HistoryFragment
 }

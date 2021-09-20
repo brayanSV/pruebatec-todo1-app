@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_account">Accounts</string>
     <string name="title_transfer">Transfer</string>
+    <string name="title_history_account">History Account</string>
     <string name="title_available_balance">Saldo Disponible</string>
     <string name="title_detail_and_movements">Ver detalle y movimientos</string>
     <string name="text_input_user">Usuario</string>

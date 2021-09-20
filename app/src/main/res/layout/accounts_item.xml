@@ -16,7 +16,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
+        android:layout_marginBottom="10sp"
         app:cardCornerRadius="15sp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,6 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <TextView
+                android:id="@+id/tvLinkDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_detail_and_movements"

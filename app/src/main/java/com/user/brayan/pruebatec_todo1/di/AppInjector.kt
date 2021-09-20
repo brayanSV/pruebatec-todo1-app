@@ -6,42 +6,42 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.user.brayan.pruebatec_todo1.App
+import com.user.brayan.pruebatec_todo1.MiApp
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 
 object AppInjector {
-    fun init(app: App) {
-        DaggerAppComponent.builder().application(app).build().inject(app)
+    fun init(miApp: MiApp) {
+        DaggerAppComponent.builder().application(miApp).build().inject(miApp)
 
-        app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+        miApp.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, p1: Bundle?) {
                 handleActivity(activity)
             }
 
             override fun onActivityStarted(p0: Activity) {
-                TODO("Not yet implemented")
+                
             }
 
             override fun onActivityResumed(p0: Activity) {
-                TODO("Not yet implemented")
+                
             }
 
             override fun onActivityPaused(p0: Activity) {
-                TODO("Not yet implemented")
+                
             }
 
             override fun onActivityStopped(p0: Activity) {
-                TODO("Not yet implemented")
+                
             }
 
             override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
-                TODO("Not yet implemented")
+                
             }
 
             override fun onActivityDestroyed(p0: Activity) {
-                TODO("Not yet implemented")
+                
             }
 
         })

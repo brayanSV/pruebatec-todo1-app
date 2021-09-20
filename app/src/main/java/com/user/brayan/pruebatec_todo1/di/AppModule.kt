@@ -6,6 +6,7 @@ import com.user.brayan.pruebatec_todo1.api.ApplicationApi
 import com.user.brayan.pruebatec_todo1.db.AccountsDao
 import com.user.brayan.pruebatec_todo1.db.HistoryAccountsDao
 import com.user.brayan.pruebatec_todo1.db.PruebaTecDb
+import com.user.brayan.pruebatec_todo1.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -15,17 +16,12 @@ import javax.inject.Singleton
 @Module(includes = [ViewModelModule::class])
 class AppModule {
     @Singleton
-    val tokenAuth = "Basic dXNlcllvdXR1YmU6cGFzd29yZFlvdXR1YmU=";
-
-    @Singleton
-    var bearer_token = "";
-
-    @Singleton
     @Provides
     fun provideApplicationApi(): ApplicationApi {
         return Retrofit.Builder()
             .baseUrl("https://47dced59-f62d-48ad-9211-eb562f8a2c05.mock.pstmn.io")
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(ApplicationApi::class.java)
     }

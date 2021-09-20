@@ -1,21 +1,18 @@
 package com.user.brayan.pruebatec_todo1.di
 
 import android.app.Application
-import com.user.brayan.pruebatec_todo1.App
+import com.user.brayan.pruebatec_todo1.MiApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AppModule::class,
-        BuildersModule::class
-    ]
-)
-
+@Component(modules = [
+    AndroidInjectionModule::class,
+    AppModule::class,
+    MainActivityModule::class
+])
 interface AppComponent {
     @Component.Builder
     interface Builder {
@@ -24,5 +21,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(app: App)
+    fun inject(miApp: MiApp)
 }

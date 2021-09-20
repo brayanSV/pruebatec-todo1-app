@@ -14,7 +14,7 @@ data class HistoryAccounts(
     val historyId: Int,
     @field:SerializedName("date")
     val date: String,
-    @field:SerializedName("descripcion")
+    @field:SerializedName("description")
     val descripcion: String,
     @field:SerializedName("reference")
     val reference: String,

@@ -2,12 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.history.History">
+    tools:context=".ui.history.HistoryFragment">
 
     <data>
         <variable
-            name="account"
-            type="com.user.brayan.pruebatec_todo1.model.Accounts" />
+            name="accountType"
+            type="String" />
+
+        <variable
+            name="number"
+            type="String" />
 
         <variable
             name="balanceText"
@@ -33,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/verdana"
-                android:text="Cuenta de Ahorros"
+                android:text="@{accountType}"
                 android:textColor="@color/colorBlack"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -64,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/verdana"
-                android:text="@{account.number}"
+                android:text="@{number}"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
 
@@ -91,10 +95,11 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contributor_list"
+            android:id="@+id/history_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toStartOf="parent"

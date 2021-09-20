@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.user.brayan.pruebatec_todo1.R
+import com.user.brayan.pruebatec_todo1.di.Injectable
+import javax.inject.Inject
 
 class TransfersFragment : Fragment() {
     override fun onCreateView(

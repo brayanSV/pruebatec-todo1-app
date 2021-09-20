@@ -9,11 +9,41 @@
         android:id="@+id/navigation_account"
         android:name="com.user.brayan.pruebatec_todo1.ui.account.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+
+        <action
+            android:id="@+id/action_navigation_account_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_transfer"
         android:name="com.user.brayan.pruebatec_todo1.ui.transfers.TransfersFragment"
         android:label="@string/title_transfer"
         tools:layout="@layout/fragment_transfers" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.user.brayan.pruebatec_todo1.ui.history.HistoryFragment"
+        android:label="@string/title_history_account"
+        tools:layout="@layout/fragment_history">
+
+        <argument
+            android:name="accountId"
+            app:argType="integer" />
+
+        <argument
+            android:name="type"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_historyFragment_to_navigation_account"
+            app:destination="@id/navigation_account" />
+        <argument
+            android:name="balance"
+            app:argType="string" />
+        <argument
+            android:name="number"
+            app:argType="string" />
+    </fragment>
 </navigation>
