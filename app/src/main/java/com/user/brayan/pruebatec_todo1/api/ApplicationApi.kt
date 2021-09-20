@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import com.user.brayan.pruebatec_todo1.model.Accounts
 import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
 import com.user.brayan.pruebatec_todo1.model.InfoToken
-import com.user.brayan.pruebatec_todo1.model.Login
+import com.user.brayan.pruebatec_todo1.model.LoginUser
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface   ApplicationApi {
@@ -24,7 +23,7 @@ interface   ApplicationApi {
     fun historySavingsAccount(@Header("Authorization") bearer_token: String): LiveData<ApiResponse<List<HistoryAccounts>>>*/
 
     @POST("/Token")
-    fun login(@Body login: Login): LiveData<ApiResponse<InfoToken>>
+    fun login(@Body loginUser: LoginUser): LiveData<ApiResponse<List<InfoToken>>>
 
     @GET("/Account")
     fun accounts(): LiveData<ApiResponse<List<Accounts>>>

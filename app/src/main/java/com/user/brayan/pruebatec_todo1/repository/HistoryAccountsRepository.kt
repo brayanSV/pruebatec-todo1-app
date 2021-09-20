@@ -31,10 +31,6 @@ class HistoryAccountsRepository @Inject constructor(
             }
 
             override fun saveCallResult(item: List<HistoryAccounts>) {
-                item.forEach {
-                    Log.e("datos", "${it.historyId}, ${it.descripcion}")
-                }
-
                 historyAccountsDao.insert(item)
             }
 

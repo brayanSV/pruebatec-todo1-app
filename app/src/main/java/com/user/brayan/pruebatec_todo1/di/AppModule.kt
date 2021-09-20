@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.user.brayan.pruebatec_todo1.api.ApplicationApi
 import com.user.brayan.pruebatec_todo1.db.AccountsDao
 import com.user.brayan.pruebatec_todo1.db.HistoryAccountsDao
+import com.user.brayan.pruebatec_todo1.db.InfoTokenDao
 import com.user.brayan.pruebatec_todo1.db.PruebaTecDb
 import com.user.brayan.pruebatec_todo1.utils.LiveDataCallAdapterFactory
 import dagger.Module
@@ -44,5 +45,11 @@ class AppModule {
     @Provides
     fun provideRepoDao(db: PruebaTecDb): HistoryAccountsDao {
         return db.historyAccountsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideInfoToken(db: PruebaTecDb): InfoTokenDao {
+        return db.infoTokenDao()
     }
 }
