@@ -9,19 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface   ApplicationApi {
-    /*@POST("/Token")
-    fun login(@Body login: Login): LiveData<ApiResponse<InfoToken>>
-
-    @GET("/Account")
-    fun accounts(@Header("Authorization") authToken: String): LiveData<ApiResponse<List<Accounts>>>
-
-    @GET("/HistoryCurrentAccount")
-    fun historyCurrentAccount(@Header("Authorization") bearer_token: String): LiveData<ApiResponse<List<HistoryAccounts>>>
-
-    @GET("/HistorySavingsAccount")
-    fun historySavingsAccount(@Header("Authorization") bearer_token: String): LiveData<ApiResponse<List<HistoryAccounts>>>*/
-
+interface  ApplicationApi {
     @POST("/Token")
     fun login(@Body loginUser: LoginUser): LiveData<ApiResponse<List<InfoToken>>>
 

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.user.brayan.pruebatec_todo1.AppExecutors
 import com.user.brayan.pruebatec_todo1.api.ApiResponse
+import com.user.brayan.pruebatec_todo1.api.ApiSuccessResponse
 import com.user.brayan.pruebatec_todo1.api.ApplicationApi
 import com.user.brayan.pruebatec_todo1.db.InfoTokenDao
 import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
@@ -36,6 +37,9 @@ class LoginRepository @Inject constructor(
                 return data == null || data.isEmpty()
             }
 
+            override fun processResponse(response: ApiSuccessResponse<List<InfoToken>>): List<InfoToken> {
+                return super.processResponse(response)
+            }
         }.asLiveData()
     }
 }

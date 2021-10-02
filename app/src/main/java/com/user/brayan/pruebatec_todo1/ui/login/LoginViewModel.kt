@@ -17,7 +17,7 @@ class LoginViewModel @Inject constructor(repository: LoginRepository): ViewModel
 
     val result: LiveData<Resource<List<InfoToken>>> = Transformations
         .switchMap(loginUser){ infoUser ->
-            repository.loadLogin(infoUser)
+            //repository.loadLogin(infoUser)
         }
 
     fun fieldsIsEmpty(user: String, passw: String): Boolean {
