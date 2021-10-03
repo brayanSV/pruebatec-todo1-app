@@ -45,5 +45,8 @@
         <argument
             android:name="number"
             app:argType="string" />
+        <argument
+            android:name="bearerToken"
+            app:argType="string" />
     </fragment>
 </navigation>

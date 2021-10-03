@@ -11,7 +11,7 @@ import retrofit2.http.POST
 
 interface  ApplicationApi {
     @POST("/Token")
-    fun login(@Body loginUser: LoginUser): LiveData<ApiResponse<List<InfoToken>>>
+    fun login(@Body loginUser: LoginUser): LiveData<ApiResponse<InfoToken>>
 
     @GET("/Account")
     fun accounts(): LiveData<ApiResponse<List<Accounts>>>

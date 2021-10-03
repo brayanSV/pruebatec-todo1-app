@@ -12,6 +12,7 @@ import com.user.brayan.pruebatec_todo1.utils.AbsentLiveData
 import javax.inject.Inject
 
 class HistoryViewModel @Inject constructor(repository: HistoryAccountsRepository): ViewModel() {
+    val bearerToken: MutableLiveData<String> = MutableLiveData()
     private val _accountType: MutableLiveData<AccountsType> = MutableLiveData()
     val accountType: LiveData<AccountsType> get() = _accountType
 
@@ -39,5 +40,13 @@ class HistoryViewModel @Inject constructor(repository: HistoryAccountsRepository
                 f(accountId, type)
             }
         }
+    }
+
+    fun setBearerToken(token: String?) {
+        if (bearerToken.value == token) {
+            return
+        }
+
+        bearerToken.value = token
     }
 }

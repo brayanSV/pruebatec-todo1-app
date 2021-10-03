@@ -10,5 +10,8 @@
     <string name="text_input_user">Usuario</string>
     <string name="text_input_password">Pasword</string>
     <string name="text_button_login">Login</string>
+    <string name="retry">retry</string>
     <string name="text_message_error_field_empty_login">Los campos de usuario o contraseña se encuentra vacios</string>
+    <string name="text_message_error_login">No fue posible iniciar sesion, intentalo nuevamente mas tarde.</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>

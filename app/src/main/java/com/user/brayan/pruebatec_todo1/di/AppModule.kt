@@ -46,10 +46,4 @@ class AppModule {
     fun provideRepoDao(db: PruebaTecDb): HistoryAccountsDao {
         return db.historyAccountsDao()
     }
-
-    @Singleton
-    @Provides
-    fun provideInfoToken(db: PruebaTecDb): InfoTokenDao {
-        return db.infoTokenDao()
-    }
 }

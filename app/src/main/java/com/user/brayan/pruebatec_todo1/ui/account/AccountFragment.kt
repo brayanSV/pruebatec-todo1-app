@@ -2,6 +2,7 @@ package com.user.brayan.pruebatec_todo1.ui.account
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.user.brayan.pruebatec_todo1.AppExecutors
 import com.user.brayan.pruebatec_todo1.R
 import com.user.brayan.pruebatec_todo1.databinding.FragmentAccountBinding
 import com.user.brayan.pruebatec_todo1.di.Injectable
+import com.user.brayan.pruebatec_todo1.ui.history.HistoryFragmentArgs
 import com.user.brayan.pruebatec_todo1.utils.autoCleared
 import javax.inject.Inject
 
@@ -44,6 +46,8 @@ class AccountFragment : Fragment(), Injectable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        accountViewModel.setBearerToken(arguments?.getString("bearerToken"))
+
         binding.lifecycleOwner = viewLifecycleOwner
         initRecyclerView()
     }
@@ -53,13 +57,15 @@ class AccountFragment : Fragment(), Injectable {
             dataBindingComponent = dataBindingComponent,
             appExecutors = appExecutors
         ) { accounts ->
-            findNavController().navigate(AccountFragmentDirections.actionNavigationAccountToHistoryFragment(accounts.accountID, accounts.accountType, accounts.balance, accounts.number))
+            findNavController().navigate(AccountFragmentDirections.actionNavigationAccountToHistoryFragment(accounts.accountID, accounts.accountType, accounts.balance, accounts.number, accountViewModel.bearerToken.value!!))
         }
 
         binding.accountsList.adapter = rvAdapter
         this.adapter = rvAdapter
 
-        initAccountsList(accountViewModel)
+        if (!accountViewModel.valBearerTokenIsNull()) {
+            initAccountsList(accountViewModel)
+        }
     }
 
     private fun initAccountsList(viewModel: AccountViewModel) {

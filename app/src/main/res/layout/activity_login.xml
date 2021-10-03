@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.login.Login">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/fragment_login" />
-    </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,11 +6,22 @@
     tools:context=".ui.login.Login">
 
     <data>
+        <import type="android.view.View" />
+        <import type="com.user.brayan.pruebatec_todo1.repository.Status" />
+        <import type="com.user.brayan.pruebatec_todo1.model.InfoToken" />
         <import type="com.user.brayan.pruebatec_todo1.repository.Resource" />
+
+        <variable
+            name="tokenResult"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;InfoToken>>" />
 
         <variable
             name="loginCallback"
             type="com.user.brayan.pruebatec_todo1.ui.common.LoginCallback" />
+
+        <variable
+            name="retryCallback"
+            type="com.user.brayan.pruebatec_todo1.ui.common.RetryCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +38,7 @@
             android:elevation="20dp"
             android:orientation="vertical"
             android:padding="20dp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +83,19 @@
                 android:stateListAnimator="@null"
                 android:text="@string/text_button_login"
                 android:onClick="@{() -> loginCallback.login()}"
+                app:visibleGone="@{tokenResult.status == Status.SUCCESS || tokenResult == null}"
                 android:theme="@style/ThemeOverlay.App.ButtonColorPrimary" />
+
+            <include
+                layout="@layout/loading_state"
+                app:resource="@{(Resource) tokenResult}"
+                app:callback="@{() -> retryCallback.retry()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

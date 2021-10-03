@@ -9,8 +9,7 @@ import com.user.brayan.pruebatec_todo1.model.InfoToken
 @Database(
     entities = [
         Accounts::class,
-        HistoryAccounts::class,
-        InfoToken::class
+        HistoryAccounts::class
     ],
     version = 2
 )
@@ -18,5 +17,4 @@ import com.user.brayan.pruebatec_todo1.model.InfoToken
 abstract class PruebaTecDb: RoomDatabase() {
     abstract fun accountsDao(): AccountsDao
     abstract fun historyAccountsDao(): HistoryAccountsDao
-    abstract fun infoTokenDao(): InfoTokenDao
 }

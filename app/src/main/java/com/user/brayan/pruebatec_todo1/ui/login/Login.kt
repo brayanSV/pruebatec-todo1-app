@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.lifecycleScope
 import com.user.brayan.mvvmkotlinudemy.binding.FragmentDataBindingComponent
 import com.user.brayan.pruebatec_todo1.AppExecutors
 import com.user.brayan.pruebatec_todo1.R
@@ -20,6 +21,7 @@ import com.user.brayan.pruebatec_todo1.di.Injectable
 import com.user.brayan.pruebatec_todo1.di.ViewModelModule
 import com.user.brayan.pruebatec_todo1.model.LoginUser
 import com.user.brayan.pruebatec_todo1.ui.common.LoginCallback
+import com.user.brayan.pruebatec_todo1.ui.common.RetryCallback
 import com.user.brayan.pruebatec_todo1.ui.main.MainActivity
 import com.user.brayan.pruebatec_todo1.utils.autoCleared
 import com.user.brayan.pruebatec_todo1.view_model.AppViewModelFactory
@@ -50,6 +52,12 @@ class Login : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
+        binding.retryCallback = object: RetryCallback {
+            override fun retry() {
+                loginViewModel.retry()
+            }
+        }
+
         binding.loginCallback = object: LoginCallback {
             override fun login() {
                 loginUser()
@@ -62,14 +70,25 @@ class Login : AppCompatActivity() {
         val passw = binding.tilPassword.editText?.text.toString()
 
         if (loginViewModel.fieldsIsEmpty(user, passw)) {
-            val toast = Toast.makeText(this, getString(R.string.text_message_error_field_empty_login), Toast.LENGTH_LONG)
-            toast.show()
+            showToast(getString(R.string.text_message_error_field_empty_login))
         } else {
-            loginViewModel.loginUser.value = LoginUser(user, passw)
+            loginViewModel.setUser(user, passw)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            loginViewModel.result.observe(this, Observer { infoToken ->
+                binding.tokenResult = loginViewModel.result
+
+                if (infoToken.data != null) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("bearerToken", infoToken.data?.token)
+                    startActivity(intent)
+                    finish()
+                }
+            })
         }
+    }
+
+    private fun showToast(message: String) {
+        val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
+        toast.show()
     }
 }

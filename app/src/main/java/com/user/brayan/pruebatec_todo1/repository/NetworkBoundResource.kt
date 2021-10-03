@@ -97,6 +97,4 @@ abstract class NetworkBoundResource <ResultType, RequestType>
 
     @MainThread
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
-
-    protected open fun getToken(): LiveData<ResultType> = ResultType
 }
