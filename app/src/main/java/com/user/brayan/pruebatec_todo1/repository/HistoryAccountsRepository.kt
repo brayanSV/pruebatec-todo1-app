@@ -7,6 +7,11 @@ import com.user.brayan.pruebatec_todo1.api.ApiResponse
 import com.user.brayan.pruebatec_todo1.api.ApplicationApi
 import com.user.brayan.pruebatec_todo1.db.HistoryAccountsDao
 import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
+import com.user.brayan.pruebatec_todo1.model.QRCodes
+import com.user.brayan.pruebatec_todo1.utils.AbsentLiveData
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,6 +41,27 @@ class HistoryAccountsRepository @Inject constructor(
 
             override fun shouldFetch(data: List<HistoryAccounts>?): Boolean {
                 return data == null || data.isEmpty()
+            }
+
+        }.asLiveData()
+    }
+
+    fun payBill(transfer: HistoryAccounts): LiveData<Resource<String>> {
+        return object: NetworkBoundResource<String, String>(appExecutors) {
+            override fun loadFromDataBase(): LiveData<String> {
+                return AbsentLiveData.create()
+            }
+
+            override fun shouldFetch(data: String?): Boolean {
+                return true
+            }
+
+            override fun saveCallResult(item: String) {
+                historyAccountsDao.insertHistory(transfer)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<String>> {
+                return applicationApi.newTransfer(transfer)
             }
 
         }.asLiveData()

@@ -1,4 +1,4 @@
-package com.user.brayan.mvvmkotlinudemy.binding
+package com.user.brayan.pruebatec_todo1.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

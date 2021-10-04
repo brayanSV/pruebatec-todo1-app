@@ -20,7 +20,15 @@
         android:id="@+id/navigation_transfer"
         android:name="com.user.brayan.pruebatec_todo1.ui.transfers.TransfersFragment"
         android:label="@string/title_transfer"
-        tools:layout="@layout/fragment_transfers" />
+        tools:layout="@layout/fragment_transfers" >
+
+        <action
+            android:id="@+id/action_navigation_transfer_to_scanFragment"
+            app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_navigation_transfer_to_rechargeAccountFragment"
+            app:destination="@id/rechargeAccountFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/historyFragment"
@@ -47,6 +55,57 @@
             app:argType="string" />
         <argument
             android:name="bearerToken"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.user.brayan.pruebatec_todo1.ui.scan.ScanFragment"
+        android:label="@string/title_scan_qr"
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_navigation_transfer"
+            app:destination="@id/navigation_transfer" />
+        <action
+            android:id="@+id/action_scanFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rechargeAccountFragment"
+        android:name="com.user.brayan.pruebatec_todo1.ui.recharge_account.RechargeAccountFragment"
+        android:label="@string/title_recharge_account"
+        tools:layout="@layout/fragment_recharge_account" >
+        <action
+            android:id="@+id/action_rechargeAccountFragment_to_navigation_transfer"
+            app:destination="@id/navigation_transfer" />
+        <action
+            android:id="@+id/action_rechargeAccountFragment_to_viewCodeFragment"
+            app:destination="@id/viewCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewCodeFragment"
+        android:name="com.user.brayan.pruebatec_todo1.ui.viewcode.ViewCodeFragment"
+        android:label="@string/title_view_code"
+        tools:layout="@layout/fragment_view_code" >
+        <action
+            android:id="@+id/action_viewCodeFragment_to_navigation_transfer"
+            app:destination="@id/navigation_transfer" />
+        <argument
+            android:name="name_file"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.user.brayan.pruebatec_todo1.ui.pay.PayFragment"
+        android:label="@string/title_pay"
+        tools:layout="@layout/fragment_pay" >
+        <action
+            android:id="@+id/action_payFragment_to_navigation_transfer"
+            app:destination="@id/navigation_transfer" />
+        <argument
+            android:name="qrCode"
             app:argType="string" />
     </fragment>
 </navigation>

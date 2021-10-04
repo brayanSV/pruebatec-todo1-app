@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.lifecycleScope
-import com.user.brayan.mvvmkotlinudemy.binding.FragmentDataBindingComponent
+import com.user.brayan.pruebatec_todo1.binding.FragmentDataBindingComponent
 import com.user.brayan.pruebatec_todo1.AppExecutors
 import com.user.brayan.pruebatec_todo1.R
 import com.user.brayan.pruebatec_todo1.databinding.ActivityLoginBinding

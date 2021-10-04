@@ -1,10 +1,7 @@
 package com.user.brayan.pruebatec_todo1.api
 
 import androidx.lifecycle.LiveData
-import com.user.brayan.pruebatec_todo1.model.Accounts
-import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
-import com.user.brayan.pruebatec_todo1.model.InfoToken
-import com.user.brayan.pruebatec_todo1.model.LoginUser
+import com.user.brayan.pruebatec_todo1.model.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -15,6 +12,9 @@ interface  ApplicationApi {
 
     @GET("/Account")
     fun accounts(): LiveData<ApiResponse<List<Accounts>>>
+
+    @POST("/NewTransfer")
+    fun newTransfer(@Body history: HistoryAccounts): LiveData<ApiResponse<String>>
 
     @GET("/HistoryCurrentAccount")
     fun historyCurrentAccount(): LiveData<ApiResponse<List<HistoryAccounts>>>

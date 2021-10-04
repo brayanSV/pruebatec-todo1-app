@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+        <variable
+            name="account"
+            type="com.user.brayan.pruebatec_todo1.model.Accounts" />
+    </data>
+
+    <LinearLayout
+        android:padding="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/verdana"
+            android:text="@{account.accountType}"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</layout>
