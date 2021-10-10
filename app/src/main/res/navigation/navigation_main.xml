@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_scanFragment_to_payFragment"
             app:destination="@id/payFragment" />
+        <argument
+            android:name="bearerToken"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -106,6 +109,9 @@
             app:destination="@id/navigation_transfer" />
         <argument
             android:name="qrCode"
+            app:argType="string" />
+        <argument
+            android:name="bearerToken"
             app:argType="string" />
     </fragment>
 </navigation>

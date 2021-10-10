@@ -16,13 +16,13 @@ class AccountsRepository @Inject constructor(
     private val accountsDao: AccountsDao,
     private val applicationApi: ApplicationApi
 ) {
-    fun loadAccounts(): LiveData<Resource<List<Accounts>>> = object: NetworkBoundResource<List<Accounts>, List<Accounts>>(appExecutors) {
+    fun loadAccounts(bearerToken: String): LiveData<Resource<List<Accounts>>> = object: NetworkBoundResource<List<Accounts>, List<Accounts>>(appExecutors) {
         override fun loadFromDataBase(): LiveData<List<Accounts>> {
             return accountsDao.load()
         }
 
         override fun createCall(): LiveData<ApiResponse<List<Accounts>>> {
-            return applicationApi.accounts()
+            return applicationApi.accounts(bearerToken)
         }
 
         override fun saveCallResult(item: List<Accounts>) {

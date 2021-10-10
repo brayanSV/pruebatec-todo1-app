@@ -21,7 +21,7 @@ class HistoryAccountsRepository @Inject constructor(
     private val historyAccountsDao: HistoryAccountsDao,
     private val applicationApi: ApplicationApi
 ) {
-    fun loadHistoryAccounts(accountID: Int, accountType: String): LiveData<Resource<List<HistoryAccounts>>> {
+    fun loadHistoryAccounts(accountID: Int, accountType: String, bearerToken: String): LiveData<Resource<List<HistoryAccounts>>> {
         return object: NetworkBoundResource<List<HistoryAccounts>, List<HistoryAccounts>>(appExecutors) {
             override fun loadFromDataBase(): LiveData<List<HistoryAccounts>> {
                 return historyAccountsDao.load(accountID)
@@ -29,9 +29,9 @@ class HistoryAccountsRepository @Inject constructor(
 
             override fun createCall(): LiveData<ApiResponse<List<HistoryAccounts>>> {
                 return if (accountType.contains("Ahorro")) {
-                    applicationApi.historySavingsAccount()
+                    applicationApi.historySavingsAccount(bearerToken)
                 } else {
-                    applicationApi.historyCurrentAccount()
+                    applicationApi.historyCurrentAccount(bearerToken)
                 }
             }
 
@@ -46,7 +46,7 @@ class HistoryAccountsRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun payBill(transfer: HistoryAccounts): LiveData<Resource<String>> {
+    fun payBill(transfer: HistoryAccounts, bearerToken: String): LiveData<Resource<String>> {
         return object: NetworkBoundResource<String, String>(appExecutors) {
             override fun loadFromDataBase(): LiveData<String> {
                 return AbsentLiveData.create()
@@ -61,7 +61,7 @@ class HistoryAccountsRepository @Inject constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<String>> {
-                return applicationApi.newTransfer(transfer)
+                return applicationApi.newTransfer(bearerToken, transfer)
             }
 
         }.asLiveData()

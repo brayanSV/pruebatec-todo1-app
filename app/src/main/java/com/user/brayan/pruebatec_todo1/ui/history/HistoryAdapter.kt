@@ -18,8 +18,7 @@ import java.util.*
 
 class HistoryAdapter (
     private val dataBindingComponent: DataBindingComponent,
-    appExecutors: AppExecutors,
-    private val callback: ((HistoryAccounts) -> Unit)?
+    appExecutors: AppExecutors
 ): DataBoundListAdapter<HistoryAccounts, HistoryItemBinding>
 (
     appExecutors = appExecutors,

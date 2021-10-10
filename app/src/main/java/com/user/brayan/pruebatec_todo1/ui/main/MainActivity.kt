@@ -1,7 +1,7 @@
 package com.user.brayan.pruebatec_todo1.ui.main
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavArgument
@@ -9,11 +9,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.user.brayan.pruebatec_todo1.R
-import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject
@@ -34,10 +35,19 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         bundle.putString("bearerToken", bearerToken)
         navController.setGraph(R.navigation.navigation_main, bundle)
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            val argument =  NavArgument.Builder().setDefaultValue(bearerToken).build()
-            destination.addArgument("bearerToken", argument)
-        }
+        navController.graph.findNode(R.id.navigation_account)
+            ?.addArgument(
+                "bearerToken", NavArgument.Builder()
+                    .setDefaultValue(bearerToken)
+                    .build()
+            )
+
+        navController.graph.findNode(R.id.navigation_transfer)
+            ?.addArgument(
+                "bearerToken", NavArgument.Builder()
+                    .setDefaultValue(bearerToken)
+                    .build()
+            )
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(

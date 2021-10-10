@@ -2,6 +2,7 @@ package com.user.brayan.pruebatec_todo1.ui.transfers
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,7 @@ class TransfersFragment : Fragment(), Injectable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        transferViewModel.setBearerToken(arguments?.getString("bearerToken"))
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.scanCallback = object: QRScanCallback {
@@ -69,7 +71,7 @@ class TransfersFragment : Fragment(), Injectable {
 
     private val requestMultiplePermissions = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted  ->
         if (isGranted) {
-            findNavController().navigate(TransfersFragmentDirections.actionNavigationTransferToScanFragment())
+            findNavController().navigate(TransfersFragmentDirections.actionNavigationTransferToScanFragment(transferViewModel.bearerToken.value.toString()))
         }
     }
 }

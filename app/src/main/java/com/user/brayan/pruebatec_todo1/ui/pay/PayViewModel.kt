@@ -6,51 +6,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
-import com.user.brayan.pruebatec_todo1.model.Accounts
 import com.user.brayan.pruebatec_todo1.model.HistoryAccounts
 import com.user.brayan.pruebatec_todo1.model.QRCodes
 import com.user.brayan.pruebatec_todo1.repository.HistoryAccountsRepository
 import com.user.brayan.pruebatec_todo1.repository.Resource
+import com.user.brayan.pruebatec_todo1.utils.AbsentLiveData
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class PayViewModel @Inject constructor(repository: HistoryAccountsRepository): ViewModel() {
-    private val _QRCode: MutableLiveData<String> = MutableLiveData()
-    val QRCode: LiveData<String> get() = _QRCode
-
     val decodeQRCode: MutableLiveData<QRCodes> = MutableLiveData()
 
-    fun setQR(path: String) {
-        if (_QRCode.value == path) {
-            return
-        }
-
-        _QRCode.value = path
+    fun convertJsonToData(qrCode: String) {
+        decodeQRCode.value = Gson().fromJson(qrCode, QRCodes::class.java)
     }
 
-    fun convertJsonToData() {
-        val gson = Gson()
-        decodeQRCode.value = gson.fromJson(QRCode.value, QRCodes::class.java)
-    }
+    private val _transfer: MutableLiveData<Pay> = MutableLiveData()
+    private val transfer: LiveData<Pay> get() = _transfer
 
-    private val _transfer: MutableLiveData<HistoryAccounts> = MutableLiveData()
-    private val transfer: LiveData<HistoryAccounts> get() = _transfer
-
-    val history: LiveData<Resource<String>> = Transformations.switchMap(transfer) {
-        repository.payBill(it)
-    }
-
-    fun createTransfer() {
+    fun createTransfer(): HistoryAccounts {
         val format = SimpleDateFormat("yyyy/MM/dd", Locale("es-CO"))
         val dateNow = Date(Calendar.getInstance().timeInMillis)
         val date = format.format(dateNow)
         val amount = BigDecimal(decodeQRCode.value!!.amount)
         val amountSel = amount.multiply(BigDecimal("-1"))
 
-        _transfer.value = HistoryAccounts(
+        return HistoryAccounts(
             0,
             date,
             decodeQRCode.value!!.description,
@@ -58,5 +41,29 @@ class PayViewModel @Inject constructor(repository: HistoryAccountsRepository): V
             amountSel.toString(),
             decodeQRCode.value!!.accountID
         )
+    }
+
+    val history: LiveData<Resource<String>> = Transformations.switchMap(transfer) {
+        repository.payBill(it.history, it.bearerToken)
+    }
+
+    fun setData(history: HistoryAccounts, bearerToken: String) {
+        val update = Pay(history, bearerToken)
+
+        if (_transfer.value == update) {
+            return
+        }
+
+        _transfer.value = update
+    }
+
+    data class Pay(val history: HistoryAccounts, val bearerToken: String) {
+        fun<T> ifExists(f: (HistoryAccounts, String) -> LiveData<T>): LiveData<T> {
+            return if (bearerToken.isBlank()) {
+                AbsentLiveData.create()
+            } else {
+                f(history, bearerToken)
+            }
+        }
     }
 }

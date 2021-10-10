@@ -1,9 +1,7 @@
 package com.user.brayan.pruebatec_todo1.ui.scan
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -29,7 +25,6 @@ import com.user.brayan.pruebatec_todo1.R
 import com.user.brayan.pruebatec_todo1.binding.FragmentDataBindingComponent
 import com.user.brayan.pruebatec_todo1.databinding.FragmentScanBinding
 import com.user.brayan.pruebatec_todo1.di.Injectable
-import com.user.brayan.pruebatec_todo1.ui.transfers.TransfersFragmentDirections
 import com.user.brayan.pruebatec_todo1.utils.autoCleared
 import javax.inject.Inject
 
@@ -59,7 +54,10 @@ class ScanFragment : Fragment(), Injectable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val params = ScanFragmentArgs.fromBundle(requireArguments())
+        scanViewModel.setBearerToken(params.bearerToken)
         binding.lifecycleOwner = viewLifecycleOwner
+
         requestMultiplePermissions.launch(Manifest.permission.CAMERA)
         initScan()
     }
@@ -75,7 +73,7 @@ class ScanFragment : Fragment(), Injectable {
 
         codeScanner.decodeCallback = DecodeCallback {
             appExecutors.mainThread.execute {
-                findNavController().navigate(ScanFragmentDirections.actionScanFragmentToPayFragment(it.text))
+                findNavController().navigate(ScanFragmentDirections.actionScanFragmentToPayFragment(it.text, scanViewModel.bearerToken.value.toString()))
             }
         }
 

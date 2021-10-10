@@ -25,7 +25,7 @@ import javax.inject.Inject
 class RechargeAccountViewModel @Inject constructor(repository: AccountsRepository): ViewModel() {
     val typeAccount: MutableLiveData<Accounts> = MutableLiveData()
 
-    val repositories: LiveData<Resource<List<Accounts>>> = repository.loadAccounts()
+    val repositories: LiveData<Resource<List<Accounts>>> = repository.loadAccounts("null")
 
     fun convertData(code: QRCodes): String {
         var gson = Gson()

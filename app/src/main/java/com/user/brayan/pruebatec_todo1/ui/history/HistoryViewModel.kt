@@ -12,18 +12,17 @@ import com.user.brayan.pruebatec_todo1.utils.AbsentLiveData
 import javax.inject.Inject
 
 class HistoryViewModel @Inject constructor(repository: HistoryAccountsRepository): ViewModel() {
-    val bearerToken: MutableLiveData<String> = MutableLiveData()
     private val _accountType: MutableLiveData<AccountsType> = MutableLiveData()
     val accountType: LiveData<AccountsType> get() = _accountType
 
     val history: LiveData<Resource<List<HistoryAccounts>>> = Transformations.switchMap(_accountType) { input ->
-        input.ifExists { accountId, type ->
-            repository.loadHistoryAccounts(accountId, type)
+        input.ifExists { accountId, type, bearerToken ->
+            repository.loadHistoryAccounts(accountId, type, bearerToken)
         }
     }
 
-    fun setId(accountId: Int, type: String) {
-        val update = AccountsType(accountId, type)
+    fun setId(accountId: Int, type: String, bearerToken: String) {
+        val update = AccountsType(accountId, type, bearerToken)
 
         if (_accountType.value == update) {
             return
@@ -32,21 +31,13 @@ class HistoryViewModel @Inject constructor(repository: HistoryAccountsRepository
         _accountType.value = update
     }
 
-    data class AccountsType(val accountId: Int, val type: String) {
-        fun<T> ifExists(f: (Int, String) -> LiveData<T>): LiveData<T> {
-            return if (accountId <= 0 || type.isBlank()) {
+    data class AccountsType(val accountId: Int, val type: String, val bearerToken: String) {
+        fun<T> ifExists(f: (Int, String, String) -> LiveData<T>): LiveData<T> {
+            return if (accountId <= 0 || type.isBlank() || bearerToken.isBlank()) {
                 AbsentLiveData.create()
             } else {
-                f(accountId, type)
+                f(accountId, type, bearerToken)
             }
         }
-    }
-
-    fun setBearerToken(token: String?) {
-        if (bearerToken.value == token) {
-            return
-        }
-
-        bearerToken.value = token
     }
 }

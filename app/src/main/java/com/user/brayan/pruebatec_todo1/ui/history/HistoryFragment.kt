@@ -53,7 +53,7 @@ class HistoryFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val params = HistoryFragmentArgs.fromBundle(requireArguments())
-        historyViewModel.setId(params.accountId, params.type)
+        historyViewModel.setId(params.accountId, params.type, params.bearerToken)
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.accountType = params.type
@@ -63,8 +63,7 @@ class HistoryFragment : Fragment(), Injectable {
         val balance = BigDecimal(params.balance)
         binding.balanceText = "$ ${format.format(balance)}"
 
-        val adapter = HistoryAdapter(dataBindingComponent, appExecutors) {
-        }
+        val adapter = HistoryAdapter(dataBindingComponent, appExecutors)
 
         this.adapter = adapter
         binding.historyList.adapter = adapter

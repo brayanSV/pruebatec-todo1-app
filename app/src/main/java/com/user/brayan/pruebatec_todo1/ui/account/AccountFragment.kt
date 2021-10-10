@@ -47,7 +47,6 @@ class AccountFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         accountViewModel.setBearerToken(arguments?.getString("bearerToken"))
-
         binding.lifecycleOwner = viewLifecycleOwner
         initRecyclerView()
     }
@@ -63,9 +62,7 @@ class AccountFragment : Fragment(), Injectable {
         binding.accountsList.adapter = rvAdapter
         this.adapter = rvAdapter
 
-        if (!accountViewModel.valBearerTokenIsNull()) {
-            initAccountsList(accountViewModel)
-        }
+        initAccountsList(accountViewModel)
     }
 
     private fun initAccountsList(viewModel: AccountViewModel) {

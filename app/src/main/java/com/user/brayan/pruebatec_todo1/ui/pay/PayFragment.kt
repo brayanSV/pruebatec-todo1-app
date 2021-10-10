@@ -1,6 +1,7 @@
 package com.user.brayan.pruebatec_todo1.ui.pay
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -53,18 +54,14 @@ class PayFragment : Fragment(), Injectable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
-
         val params = PayFragmentArgs.fromBundle(requireArguments())
-        payViewModel.setQR(params.qrCode)
-        payViewModel.convertJsonToData()
-
+        binding.lifecycleOwner = viewLifecycleOwner
+        payViewModel.convertJsonToData(params.qrCode)
         binding.qrCode = payViewModel.decodeQRCode.value
 
         binding.payCallback = object: PayCallback {
             override fun pay() {
-                payViewModel.createTransfer()
+                payViewModel.setData(payViewModel.createTransfer(), params.bearerToken)
             }
         }
 
@@ -73,7 +70,7 @@ class PayFragment : Fragment(), Injectable {
                 if (it.status == Status.SUCCESS) {
                     Toast.makeText(requireContext(), "Pago realizado correctamente", Toast.LENGTH_LONG).show()
                     findNavController().navigate(PayFragmentDirections.actionPayFragmentToNavigationTransfer())
-                } else {
+                } else if (it.status == Status.ERROR) {
                     Toast.makeText(requireContext(), "No fue posible realizar el pago, intentelo de nuevo mas tarde.", Toast.LENGTH_LONG).show()
                 }
             }
